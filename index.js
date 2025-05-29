@@ -1,13 +1,20 @@
-const express = require('express');
-const app = express();
-const PORT = 3000;
+const express = require('express')
+const app = express()
+const port = process.env.PORT || 3000
 
-// Root endpoint
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
+var LoremIpsum = require('lorem-ipsum').LoremIpsum;
+
+var lorem = new LoremIpsum({
+  sentencesPerParagraph: {
+    max: 8,
+    min: 4
+  },
+  wordsPerSentence: {
+    max: 16,
+    min: 4
+  }
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-});
+app.get('/', (req, res) => res.send(lorem.generateParagraphs(7)))
+
+app.listen(port, () => console.log(`Example app listening on port ${port}!`))
