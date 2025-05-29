@@ -36,5 +36,7 @@ jobs:
 
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
+      - name: run docker contaier
+        run: docker run -d -p 80:3000 --restart always --name my_app ${{ secrets.DOCKERHUB_USERNAME }}/myapp:latest
 
      
